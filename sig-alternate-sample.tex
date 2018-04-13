@@ -107,13 +107,13 @@
 \usepackage{array}
 \newcolumntype{N}{@{}m{0pt}@{}}
 
-\newcommand{\weinan}[1]{{\bf \color{blue} [[Weinan says ``#1'']]}}
-\newcommand{\dell}[1]{{\bf \color{red} [[Dell says ``#1'']]}}
-\newcommand{\jun}[1]{{\bf \color{green} [[Jun says ``#1'']]}}
-\newcommand{\lantao}[1]{{\bf \color{purple} [[Lantao says ``#1'']]}}
-\newcommand{\yu}[1]{{\bf \color{orange} [[Yu says ``#1'']]}}
-\newcommand{\xu}[1]{{\bf \color{violet} [[Yinghui says ``#1'']]}}
-\newcommand{\pz}[1]{{\bf \color{brown} [[Peng says ``#1'']]}}
+\newcommand{\waby}[1]{{\bf \color{blue} [[waby says ``#1'']]}}
+\newcommand{\qiuchi}[1]{{\bf \color{red} [[qiuchi says ``#1'']]}}
+% \newcommand{\jun}[1]{{\bf \color{green} [[Jun says ``#1'']]}}
+% \newcommand{\lantao}[1]{{\bf \color{purple} [[Lantao says ``#1'']]}}
+% \newcommand{\yu}[1]{{\bf \color{orange} [[Yu says ``#1'']]}}
+% \newcommand{\xu}[1]{{\bf \color{violet} [[Yinghui says ``#1'']]}}
+% \newcommand{\pz}[1]{{\bf \color{brown} [[Peng says ``#1'']]}}
 
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}  % Use Input in the format of Algorithm
 \renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
@@ -372,7 +372,7 @@ loss = distance(softmax(\rho^{(t)}*E), Onehot(w_(i+1)))
 \small
 \REQUIRE
 m-dimension word vectors $E$ with size $|V|*m$ \\
-\hspace{4mm} A assisted hidden vector for measurement   \\
+\hspace{4mm} A assisted hidden vector $h$ for measurement   \\
 \hspace{4mm} A given word sequence $\mathcal{S}=\left\{\bs{w_1},\bs{w_2},...\bs{w_n}\right\}$ \\
 \hspace{4mm} A initial density matrix $\rho _0$   \\
 
