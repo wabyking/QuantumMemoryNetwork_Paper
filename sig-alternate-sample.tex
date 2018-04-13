@@ -47,7 +47,78 @@
 
 \documentclass{sig-alternate-05-2015}
 \usepackage{epstopdf}
+\usepackage{braket}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+% Copyright
 
+\setlength{\paperwidth}{8.5in}
+\setlength{\paperheight}{11in}
+\pdfpagewidth  = \paperwidth
+\pdfpageheight = \paperheight
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+% \usepackage{amsthm}
+\interdisplaylinepenalty=2500
+
+% style settings are:
+% \clubpenalty=10000
+% \widowpenalty=10000
+
+% \setlength{\itemsep}{5pt plus5pt minus0pt} \setlength{\parsep}{5pt
+%    plus5pt minus0pt} \setlength{\textfloatsep}{7pt plus0pt
+%    minus0pt}%space between graph and text one col
+% \setlength{\dbltextfloatsep}{5pt plus5pt
+%   minus5pt}% space between graph and tex
+% \setlength{\dblfloatsep}{2pt plus0pt minus0pt}%space between graph
+% \setlength{\intextsep}{0pt plus0pt minus0pt}%space left on top and
+
+% \usepackage[colorlinks=true, citecolor=blue, urlcolor=cyan, linkcolor=red]{hyperref}
+
+
+\usepackage{amscd,amsfonts,amsbsy,rotating}
+\usepackage{graphicx}
+% \usepackage{epsfig,epstopdf}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{color,xcolor}
+\usepackage{url}
+\usepackage{latexsym,bm}
+\usepackage{enumitem,balance,mathtools}
+\usepackage{wrapfig}
+\usepackage{mathrsfs,euscript}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{ifpdf}
+\usepackage{diagbox}
+\usepackage{caption}
+\usepackage{makecell}
+
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\bx}{\bs{x}}
+\newcommand{\btheta}{\bs{\theta}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\pctr}{r}
+\linespread{0.950}
+
+\usepackage{array}
+\newcolumntype{N}{@{}m{0pt}@{}}
+
+\newcommand{\weinan}[1]{{\bf \color{blue} [[Weinan says ``#1'']]}}
+\newcommand{\dell}[1]{{\bf \color{red} [[Dell says ``#1'']]}}
+\newcommand{\jun}[1]{{\bf \color{green} [[Jun says ``#1'']]}}
+\newcommand{\lantao}[1]{{\bf \color{purple} [[Lantao says ``#1'']]}}
+\newcommand{\yu}[1]{{\bf \color{orange} [[Yu says ``#1'']]}}
+\newcommand{\xu}[1]{{\bf \color{violet} [[Yinghui says ``#1'']]}}
+\newcommand{\pz}[1]{{\bf \color{brown} [[Peng says ``#1'']]}}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  % Use Input in the format of Algorithm
+\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm
+
+\newcommand{\minisection}[1]{\vspace{5pt}\noindent\textbf{#1.}}
 \begin{document}
 
 % Copyright
@@ -243,30 +314,23 @@ Sequential modelling is one of the key concern in textual represention. Recurren
 \section{Introduction}
 
 
-Sequential language modelling is a one of key concerns in Texual Information Retrieval and Natual Language Processing. Current state of art models like Recurrent Neural Network and it variants (LSTM and further) use a black-box  mechinsim to model language, which easily achieave  a better performance in the current supervised datset, but lack some inherent interpretability thus can not gernerate its similiar conclution to another dataset. Limited efforts  are trying to explain the inner mechinsim in sequential neural network (e.g. RNN, Encoder-Decoder, Memory Network), but in an empirical post-hoc conjecture after training \cite{lipton2016mythos}, e.g. network nisualizing in neural machine translation \cite{ding2017visualizing},  clustering analyzing for word embeddings \cite{trost2017parameter} and understanding hidden state vectors in neural readers\cite{wang2017emergent}. Interpretability in the perspective of transparency tends to be a vital issue for us to understand the mechanism by how these models work.
+Sequential language modeling is a one of key concerns in Textual Information Retrieval and Natural Language Processing. Current state of art models like Recurrent Neural Network and it variants (LSTM and further) use a black-box  mechanism to model language, which easily achieve  a better performance in the current supervised dataset, but lack some inherent interpretability thus can not generate its similar conclusion to another dataset. Limited efforts  are trying to explain the inner mechanism in sequential neural network (e.g. RNN, Encoder-Decoder, Memory Network), but in an empirical post-hoc conjecture after training \cite{lipton2016mythos}, e.g. network visualizing in neural machine translation \cite{ding2017visualizing},  clustering analyzing for word embeddings \cite{trost2017parameter} and understanding hidden state vectors in neural readers\cite{wang2017emergent}. Interpretability in the perspective of transparency tends to be a vital issue for us to understand the mechanism by how these models work.  \cite{levine2017deep} uses tensor networks and tensor decompositions to bridge the gap between conventional neural network, which opens a new door for us to use quantum-inspired insight to motivate us to design new self-explanatory neural networks.
 
-Recently, Quantum Theory have been appiled into many fields outside of physicis, e.g. Information Retrieval\cite{van2004geometry,melucci2011quantum}, Natual Language Processing\cite{blacoe2013quantum,zhang2018end}. In the language representation and matching task, Quantum IR represnetion ;   Quantum Theory and Deep learning  .
+Recently, Quantum Theory have been applied into many fields outside of physics, e.g. Information Retrieval\cite{van2004geometry,melucci2011quantum}, Natural Language Processing\cite{blacoe2013quantum,zhang2018end}. In the language representation and matching task, Quantum and Quantum-inspired models are firstly introduced in ad hoc retrieval. These works \cite{zuccon2010using} usually design some Quantum inspired approach to rank documents, intrinsically, the representation of document/language is still based on traditional IR models. 
+Many works \cite{piwowarski2010can,sordoni2013modeling1} are trying to model  document (query) in quantum representation (e.g. density matrix and subspace). However, they are usually based on bag-of-word models for ad-hoc retrieval, which is limited to model a sequential textual sentence.  \cite{zhang2018end} propose a end-2-end neural network to calculate the question-answer matching score via convolution over the inner product of question and answer density matrices, but it is totally designed in traditional neural network but  have little quantum property within the models.
 
-Our models
+\begin{figure}[h]
+\centering
+\includegraphics[ width=3in]{figures/measurement-crop.pdf}
+\caption{The process of measurement for a sequential sentence}
+\label{fig:measurement}
+%\vspace{-10pt}
+\end{figure}
+Most of the above quantum models propose a series of static representation for a sentence or a document, which is too rough to model the complexity of language. Language could be considered a dynamic process derived from our mind in a cognitive perspective \cite{atmanspacher2012dual}. we develop the idea from \cite{xie2015modeling} in a dynamic evolution settings, as illustrated in Figure \ref{fig:measurement}. \cite{atmanspacher2012dual} propose that  the unconscious state  can be seen as an entangled state, and then becoming  a conscious state after measurement. \cite{xie2015modeling} further explain that the process from consciousness to a static word sequence in only one measurement. In our deeper thinking, the consciousness collapses to a word or a phrase after each measurement, as seem for us in reality. In the same time, the consciousness can also be affected and instantly transfered into a new state, and can also collapses to a new word or  phrase in a dynamic process. 
 
-and even general Machine Learning. \cite{levine2017deep}
+In our paper, we design a Quantum Memory Network to model the dynamic process from consciousness to a sequence of words/phrases. Each word/phrase are denoted as a N-dimensional unit vector in a Hibert space, while consciousness is denoted as density matrix. After a measurement, the  state of consciousness will  in principle (completely or slightly) collapse, thus becoming to a new state.  In a specific context (with many measured words before), the state of consciousness can be described as a semantic distribution over all the words. Such distribution would be affected by each measuring result, namely, would evolve with the word generating.
 
-
-(IR) NLP/ bridge the gap between DL and nn.  NNQLM, NN inspired design is not . they also ,  really use quantum property,
-
-Quantum theory have a 
-
-
-
-
-
-
-
-
-
-
-
-
+The experimental result \footnote{https://github.com/wabyking/QuantumMemoryNetwork } demonstrate the advantage of our models in some typical task, like ,word regulation, word similarity, language model, Sentence Classification,  Microsoft Research Paraphrase Corpus (Dolan and Brockett 200),  Semantic Similarity (SICK Dataset (Marelli et al. 2014)), Textual Entailment(Stanford Natural Language Inference Dataset (Bowman et al. 2015)), Question answering and ad hoc Retrieval.
 
 
 
@@ -274,14 +338,78 @@ Quantum theory have a
 
 \section{Related Works}
 \subsection{Quantum Information Retrieval}
-\subsection{Recurrent Neural Network}
+\subsection{Recurrent Neural Network and Memory Network}
 \subsection{Markov Decision Process}
-\subsection{Memory Network}
-Quantum Language Model
+\section{Quantum Preliminaries}
+\section{Models}
+\subsection{Representation}
+\subsubsection{Unit word vector}
+\subsubsection{Density Matrix}
+povm exmplain
+\subsection{Evolution}
 
-\section{P}
+
+\begin{equation}
+\alpha = \braket{h|e_{w_i}}^2
+\label{eq:bias}
+\end{equation}
+
+\begin{equation}
+\rho^{(t)} = \rho^{(t-1)} * \alpha + \ket{e_{w_i}}\bra{e_{w_i}} *(1-\alpha)
+\label{eq:update}
+\end{equation}
+
+\begin{equation}
+loss = distance(softmax(\rho^{(t)}*E), Onehot(w_(i+1)))
+\label{eq:loss}
+\end{equation}
 
 
+\begin{algorithm}[t]
+\caption{Training of Quantum Memory Network}
+\label{algo:framework}
+\begin{algorithmic}[1]
+\small
+\REQUIRE
+m-dimension word vectors $E$ with size $|V|*m$ \\
+\hspace{4mm} A assisted hidden vector for measurement   \\
+\hspace{4mm} A given word sequence $\mathcal{S}=\left\{\bs{w_1},\bs{w_2},...\bs{w_n}\right\}$ \\
+\hspace{4mm} A initial density matrix $\rho _0$   \\
+
+\STATE
+Initialise $\rho=\rho _0$.
+\STATE
+Pretrain  embedding and grantee the unit length.
+
+\REPEAT
+\FOR{ i : n}
+\STATE
+Look up the unit word vector $e_{w_i}$ for word $w_i$.
+\STATE
+Calculate the bias of the weak measurement by Eq.~({\ref{eq:bias}}).
+\STATE
+Update the new density matrix  by Eq.~({\ref{eq:update}}).
+\STATE
+Back propagation by loss shown in  Eq.~({\ref{eq:loss}}).
+\ENDFOR
+
+\UNTIL{Traversal all the tokens in current sentence.}
+\end{algorithmic}
+\end{algorithm}
+
+
+\subsection{Optimization Method}
+
+\section{Empirical Evaluation}
+\subsection{Dataset}
+\subsection{Metric}
+\subsection{Result and Analysis}
+\subsection{Ablation test}
+\subsection{Parameter Sensitivity}
+\section{Discussion}
+\subsection{Time Complexity}
+\subsection{Space Complexity}
+\subsection{Case Study}
 \section{Conclusions}
 This paragraph will end the body of this sample document.
 Remember that you might still have Acknowledgments or
@@ -320,9 +448,8 @@ and the \textbf{.cls} and \textbf{.tex} files that it describes.
 %\balancecolumns
 \appendix
 %Appendix A
-\section{Link Density martirx to probability}
-The rules about hierarchical headings discussed above for
-the body of the article are different in the appendices.
-In the \textbf{appendix} environment, the command
-
+\section{Regarding Density Matrix}
+Understand Density Matrix.
+\section{Standard Measurement and Weak Measurement}
+Why we do not use Standard Measurement 
 \end{document}
